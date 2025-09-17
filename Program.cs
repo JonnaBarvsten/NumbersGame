@@ -7,50 +7,67 @@ namespace NumbersGame
     internal class Program
     {
 
-        public static string CheckGuesses(int );
+        public static string CheckGuessing(int guessNumber, int number)
         {
-        
-        }
-        
+           
+                if (guessNumber == number)
+                {
+                   
+                    return "WOHO you made it";
+
+                }
+                else if (guessNumber < number)
+                {
+                    return "The number was to low!";
+
+                }
+                else
+                {
+                    return "You guess to high";
+
+                }
+            }
+
         static void Main(string[] args)
         {
             // Print message to user. 
             Console.WriteLine("Welcome! I'm thinking about a number. Can you guess which? You get five tries.");
 
             var rnd = new Random();
-            int number = rnd.Next(1, 121);
+            int number = rnd.Next(1,21);
+            int guessNumber;
+            int tries = 0; 
 
-           
-            bool isRunning = true;
+            
+            while ( tries < 5) 
+            { 
+            for (int i = 0; i < 5; i++)
+            {
+                Console.Write("Guess number: ");
+                bool sucess = int.TryParse(Console.ReadLine(), out guessNumber);
 
-                for ( int i = 0; i < 5; i ++) 
+                if (!sucess) 
                 {
-                    Console.Write("Guess number: ");
-                    int guessNumber = int.Parse(Console.ReadLine());
-
-                    Console.WriteLine(guessNumber);
-
-                    if (guessNumber == number)
-                {
-                    Console.WriteLine("WOHO you made it!");
-
-                    isRunning = false; 
-                      
+                    Console.WriteLine("Please enter a number");
+                    // Gör att loopen börjar om istället för retunera 0 värde
+                    continue;
+                    
                 }
-                else if (guessNumber < number)
-                {
-                    Console.WriteLine("The number was to low!");
-                        
-                }
-                else
-                {
-                    Console.WriteLine("You guess to high");
-                        
-                }
+
+                    tries++;
+
+               string result = CheckGuessing(guessNumber, number);
+
+                Console.WriteLine(result);
                 
+                if(guessNumber == number) 
+                    {
+                        return; 
+                    }
 
-                   
-                }
+            }
+
+            }
 
             Console.WriteLine("Sorry you failed guessing on 5 times");
 
@@ -59,8 +76,8 @@ namespace NumbersGame
 
 
 
-            CheckGuesses();
-
         }
+
+        
     }
 }
